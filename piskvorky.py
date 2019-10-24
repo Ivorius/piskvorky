@@ -1,4 +1,5 @@
 import random
+import PiskvorkyException
 
 def vyhodnot(str):
     stri = str.lower()
@@ -14,11 +15,18 @@ def vyhodnot(str):
 
 
 def tah(pole, cislo_policka, symbol):
-    if(cislo_policka < 0 or cislo_policka > 19): 
-        raise ValueError('Pozice v rozmezí 0 až 19 pouze')
+    length = len(pole)
+    max_position = length - 1
+
+    if(pole.count('-') == 0):
+        raise PiskvorkyException.PiskvorkyException('Nejsou volná již žádná pole pro zadání')
+
+    if(cislo_policka < 0 or cislo_policka > max_position): 
+        raise ValueError('Pozice v rozmezí 0 až {x} pouze'.format(x=max_position))
     
     if(pole[cislo_policka] != '-'):
         raise ValueError('Na pozici {x} je již jiný symbol'.format(x=cislo_policka))
+
     
     nove_pole = pole[:cislo_policka] + symbol + pole[cislo_policka+1:]
 
@@ -57,8 +65,8 @@ def tah_pocitace(pole):
    
     return pole
 
-def nove_pole(integer):
-    pole = '-' *  integer
+def nove_pole(length = 20):
+    pole = '-' *  length
     return pole
 
 

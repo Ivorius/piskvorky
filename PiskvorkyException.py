@@ -1,0 +1,2 @@
+class PiskvorkyException(Exception):
+    pass
